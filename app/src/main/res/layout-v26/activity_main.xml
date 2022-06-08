@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="@id/avatar"
         app:layout_constraintVertical_chainStyle="spread"
         tools:ignore="MissingConstraints"
-        tools:text="@string/post_name" />
+        tools:text="Нетология. Меняем карьеру через бла-бла-бла" />
 
     <TextView
         android:id="@+id/date"
@@ -64,75 +64,24 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/post"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         android:ellipsize="end"
+        android:justificationMode="inter_word"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline2"
-        tools:text="@string/post" />
+        tools:text="@tools:sample/lorem/random" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/likes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/post"
         tools:src="@drawable/ic_baseline_favorite_border_24"
-        tools:visibility="visible" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/sum_like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        tools:visibility="visible"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:singleLine="true"
-        app:layout_constraintStart_toEndOf="@id/likes"
-        app:layout_constraintTop_toBottomOf="@id/post"
-        tools:text="@string/sum_likes" />
+        android:layout_marginTop="10dp"/>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/repost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toEndOf="@id/sum_like"
-        app:layout_constraintTop_toBottomOf="@id/post"
-        tools:src="@drawable/ic_baseline_share_24dp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:singleLine="true"
-        app:layout_constraintStart_toEndOf="@id/repost"
-        app:layout_constraintTop_toBottomOf="@id/post"
-        tools:text="@string/reposts" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/sum_visible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:singleLine="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/post"
-        tools:text="@string/sum_visible" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/visible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toStartOf="@id/sum_visible"
-        app:layout_constraintTop_toBottomOf="@id/post"
-        tools:src="@drawable/ic_baseline_visibility_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>
