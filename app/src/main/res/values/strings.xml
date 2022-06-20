@@ -2,8 +2,12 @@
     <string name="app_name">NMedia</string>
     <string name="greeting">NMedia!</string>
     <string name="post_name">Netology. University of Internet Professions.</string>
-    <string name="post">Hello, this is the new Netology! Once upon a time, Netology began with online marketing intensives. Then there were courses in design, development, analytics and management. We grow ourselves and help students grow: from beginners to confident professionals. But the most important thing remains with us: we believe that everyone already has the power that makes you want more, aim higher, run faster. Our mission is to help you get on the path to growth and start the chain of change.</string>
-    <string name="sum_likes">10000</string>
-    <string name="reposts">5</string>
-    <string name="sum_visible">50000</string>
+    <string name="date">06/06/2022</string>
+    <string name="content">Hello, this is the new Netology! Once upon a time, Netology began with online marketing intensives. Then there were courses in design, development, analytics and management. We grow ourselves and help students grow: from beginners to confident professionals. But the most important thing remains with us: we believe that everyone already has the power that makes you want more, aim higher, run faster. Our mission is to help you get on the path to growth and start the chain of change.</string>
+    <string name="like">Like</string>
+    <string name="sum_likes">0</string>
+    <string name="repost">Repost</string>
+    <string name="sum_reposts">0</string>
+    <string name="visible">Visible</string>
+    <string name="sum_visible">0</string>
 </resources>
