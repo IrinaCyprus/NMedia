@@ -3,6 +3,7 @@ package ru.netology.nmedia.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,41 +13,60 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.PostListBinding
 import kotlin.math.floor
 
-typealias OnLikeListener = (Post) -> Unit
-typealias OnShareListener = (Post) -> Unit
-
 internal class PostAdapter(
-    private val onLikeClicked: OnLikeListener,
-    private val onShareListener: OnShareListener
-) : ListAdapter<Post, PostAdapter.ViewHolder>(DiffCallback) {                //буфер из ограниченного колличества вьюх и достает нужгые данные из списка
+    private val interactionListener: PostInteractionListener
+) : ListAdapter<Post, PostAdapter.ViewHolder>(DiffCallback) {             //буфер из ограниченного колличества вьюх и достает нужгые данные из списка
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         Log.d("PostAdapter", "onCreateViewHolder")
-        val inflater = LayoutInflater.from(parent.context)                  // создаем инфлейтор
-        val binding = PostListBinding.inflate(inflater, parent, false)                                               //!!! адаптер сам регулирует когда добавляет когда убират вьюхи
-        return ViewHolder(binding, onLikeClicked, onShareListener)
+        val inflater = LayoutInflater.from(parent.context)               // создаем инфлейтор
+        val binding = PostListBinding.inflate(
+            inflater,
+            parent,
+            false
+        )                                                              //!!! адаптер сам регулирует когда добавляет когда убират вьюхи
+        return ViewHolder(binding, interactionListener)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int
-    ) {                                                                     //перезаполняет созданную уже вьюху
+    override fun onBindViewHolder(
+        holder: ViewHolder, position: Int
+    ) {                                                                 //перезаполняет созданную уже вьюху
         Log.d("PostAdapter", "onBindViewHolder:$position")
         holder.bind(getItem(position))
     }
 
-     class ViewHolder(                                                  //держит отдельную вьюху
+    class ViewHolder(                                                  //держит отдельную вьюху
         private val binding: PostListBinding,
-        private val onLikeClicked: OnLikeListener,
-        private val onShareListener: OnShareListener
+        listener: PostInteractionListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var post: Post
 
+         private val popupMenu by lazy {
+            PopupMenu(itemView.context, binding.menu).apply {
+                inflate(R.menu.option_post)
+                setOnMenuItemClickListener { menuItem ->
+                    when (menuItem.itemId) {
+                        R.id.remove -> {
+                            listener.onRemoveClicked(post)
+                            true
+                        }
+                        R.id.edit -> {
+                            listener.onEditeClicked(post)
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            }
+        }
+
         init {
             binding.like.setOnClickListener {
-                onLikeClicked(post)
+                listener.onLikeClicked(post)
             }
             binding.repost.setOnClickListener {
-                onShareListener(post)
+                listener.onShareClicked(post)
             }
         }
 
@@ -61,6 +81,7 @@ internal class PostAdapter(
                 sumLikes.text = countView(post.sum_likes)
                 sumRepost.text = countView(post.sum_reposts)
                 sumVisible.text = countView(post.sum_visible)
+                menu.setOnClickListener{popupMenu.show()}
             }
         }
 

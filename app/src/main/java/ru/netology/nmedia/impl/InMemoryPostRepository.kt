@@ -7,7 +7,7 @@ import ru.netology.nmedia.data.PostRepository
 //реализация интерфейса PostRepository для хранения памяти
 
 class InMemoryPostRepository : PostRepository {
-
+    private var nextId = GENERATED_POSTS_AMOUNT.toLong()
     private var posts                                //обертка mutableLiveData
         get() = checkNotNull(data.value)
         set(value) {
@@ -17,7 +17,7 @@ class InMemoryPostRepository : PostRepository {
     override val data: MutableLiveData<List<Post>>  // MutableLiveData это одна из имплементаций LiveData
 
     init {
-        val initialPosts = List(1000) { index ->
+        val initialPosts = List(GENERATED_POSTS_AMOUNT) { index ->
             Post(
                 id = index + 1L,
                 authorName = "Нетология...",
@@ -50,18 +50,31 @@ class InMemoryPostRepository : PostRepository {
         }
     }
 
-//    override fun visible() {
-//        TODO("Not yet implemented")
-//    }
+    override fun delete(postId: Long) {
+        data.value = posts.filterNot { it.id == postId }
+    }
 
-//    like = if (currentPost.likedByMe) currentPost.sum_likes-- else currentPost.sum_likes++
-//    )
-//    data .value = likedPost // положили новое значение likedPost в LiveData
+    override fun save(post: Post) {
+        if (post.id == PostRepository.NEW_POST_ID) insert(post) else update(post)
+    }
 
-//override fun repost() {
-//    val currentPost = checkNotNull(data.value)
-//    val repostPost = currentPost.copy(sum_reposts = currentPost.sum_reposts + 1)
-//    data.value = repostPost
-//}
+    private fun update(post: Post) {
+        data.value = posts.map {
+            if (it.id == post.id) post else it
+        }
+    }
 
+    private fun insert(post: Post) {
+        data.value = listOf(
+            post.copy(id = ++nextId)
+        ) + posts
+    }
+
+    private companion object {
+        const val GENERATED_POSTS_AMOUNT = 1000
+    }
+
+    override fun visible() {
+        TODO("Not yet implemented")
+    }
 }

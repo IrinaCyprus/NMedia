@@ -1,10 +1,13 @@
 package ru.netology.nmedia
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.util.hideKeyboard
+import ru.netology.nmedia.util.showKeyboard
 import ru.netology.nmedia.viewModel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -14,38 +17,46 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModel:PostViewModel by viewModels()
-        val adapter = PostAdapter(
-            onLikeClicked ={post ->
-               viewModel.onLikeClicked(post)
-            },
-            onShareListener = {post ->
-                viewModel.onShareClicked(post)
-            }
-        )
+        val viewModel: PostViewModel by viewModels()
+        val adapter = PostAdapter(viewModel)
         binding.postRecyclerView.adapter = adapter
         viewModel.data.observe(this) { posts ->            // подписались на Livedata  в viewModel
             adapter.submitList(posts)
         }
+        binding.saveButton.setOnClickListener {
+            with(binding.contentEditText) {
+                val content = text.toString()
+                viewModel.onSaveButtonClicked(content)
+                binding.editGroup?.visibility = View.GONE
+            }
+        }
+
+        binding.editButton?.setOnClickListener {
+            viewModel.currentPost.value = null
+            binding.editGroup?.visibility = View.GONE
+        }
+
+        viewModel.currentPost.observe(this) { currentPost ->
+            with(binding.contentEditText) {
+                val content = currentPost?.content
+                setText(content)
+                if (content != null) {
+                    binding.editGroup?.visibility = View.VISIBLE
+                    binding.editTextField?.text = content
+                    requestFocus()
+                    showKeyboard()
+                } else {
+                    clearFocus()
+                    hideKeyboard()
+                    binding.editGroup?.visibility = View.GONE
+                }
+            }
+        }
     }
 }
 
-//@DrawableRes
-//fun getLikeIconResId(liked: Boolean) =
-//    if (liked) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
-//
-//@Override
-//fun countView(number: Int): String {
-//    return when {
-//        number in 0..999 -> number.toString()
-//        number < 10000 && number % 1000 < 100 -> "${(number / 1000)}K"
-//        number in 1100..9999 -> "${floor((number.toDouble() / 1000) * 10) / 10}K"
-//        number in 10000..999999 -> "${(number / 1000)}K"
-//        number % 1000000 < 100000 -> "${(number / 1000000)}M"
-//        number in 1000000..999999999 -> "${floor((number.toDouble() / 1000000) * 10) / 10}M"
-//        else -> "0"
-//    }
-//}
+
+
 
 
 

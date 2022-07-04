@@ -26,7 +26,7 @@
         android:ellipsize="end"
         android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@id/published"
-        app:layout_constraintEnd_toStartOf="@id/option"
+        app:layout_constraintEnd_toStartOf="@id/menu"
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toTopOf="@id/avatar"
         app:layout_constraintVertical_chainStyle="spread"
@@ -46,7 +46,7 @@
         tools:text="@string/published" />
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/option"
+        android:id="@+id/menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -71,7 +71,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline2"
-        tools:text="@string/post" />
+        tools:text="@string/content" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/bottomBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="content" />
 
     <ImageButton
         android:id="@+id/like"
@@ -84,7 +91,7 @@
         android:minWidth="24dp"
         android:minHeight="24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/content"
+        app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
         app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -96,7 +103,7 @@
         android:layout_marginEnd="16dp"
         android:singleLine="true"
         app:layout_constraintStart_toEndOf="@id/like"
-        app:layout_constraintTop_toBottomOf="@id/content"
+        app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
         tools:text="@string/sum_likes" />
 
     <androidx.appcompat.widget.AppCompatImageButton
@@ -109,7 +116,7 @@
         android:contentDescription="@string/repost"
         android:src="@drawable/ic_baseline_share_24dp"
         app:layout_constraintStart_toEndOf="@id/sum_likes"
-        app:layout_constraintTop_toBottomOf="@id/content" />
+        app:layout_constraintTop_toBottomOf="@id/bottomBarrier" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/sum_repost"
@@ -119,7 +126,7 @@
         android:layout_marginTop="16dp"
         android:singleLine="true"
         app:layout_constraintStart_toEndOf="@id/repost"
-        app:layout_constraintTop_toBottomOf="@id/content"
+        app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
         tools:text="@string/sum_reposts" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -130,7 +137,7 @@
         android:layout_marginEnd="24dp"
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/content"
+        app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
         tools:text="@string/sum_visible" />
 
     <androidx.appcompat.widget.AppCompatImageButton
@@ -143,7 +150,7 @@
         android:contentDescription="@string/visible"
         android:src="@drawable/ic_baseline_visibility_24"
         app:layout_constraintEnd_toStartOf="@id/sum_visible"
-        app:layout_constraintTop_toBottomOf="@id/content"
+        app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
         tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
