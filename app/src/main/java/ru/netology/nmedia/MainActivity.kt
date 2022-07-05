@@ -43,11 +43,11 @@ class MainActivity : AppCompatActivity() {
                 if (content != null) {
                     binding.editGroup?.visibility = View.VISIBLE
                     binding.editTextField?.text = content
-                    requestFocus()
-                    showKeyboard()
+                    requestFocus()                                 //(раздел Advanced) позволяет установить фокус на нужном компоненте
+                    showKeyboard()                                 //функция показывающая клавиатуру
                 } else {
                     clearFocus()
-                    hideKeyboard()
+                    hideKeyboard()                                 //функция скрывающая клавиатуру
                     binding.editGroup?.visibility = View.GONE
                 }
             }

@@ -45,16 +45,16 @@
         app:layout_constraintTop_toBottomOf="@id/authorName"
         tools:text="@string/published" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/menu"
+        style="@style/Widget.AppTheme.MenuCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:src="@drawable/ic_vert_24dp"
+        android:checkable="true"
+        android:contentDescription="@string/menu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:checked="true" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -80,77 +80,45 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="content" />
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/like"
+        style="@style/Widget.AppTheme.LikeCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
+        android:layout_marginStart="16dp"
+        android:checkable="true"
         android:contentDescription="@string/like"
-        android:minWidth="24dp"
-        android:minHeight="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
-        app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/sum_likes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:singleLine="true"
-        app:layout_constraintStart_toEndOf="@id/like"
-        app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
+        tools:checked="true"
         tools:text="@string/sum_likes" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/repost"
+        style="@style/Widget.AppTheme.RepostCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
+        android:checkable="true"
         android:contentDescription="@string/repost"
-        android:src="@drawable/ic_baseline_share_24dp"
-        app:layout_constraintStart_toEndOf="@id/sum_likes"
-        app:layout_constraintTop_toBottomOf="@id/bottomBarrier" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/sum_repost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:singleLine="true"
-        app:layout_constraintStart_toEndOf="@id/repost"
+        app:layout_constraintStart_toEndOf="@id/like"
         app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
+        tools:checked="true"
         tools:text="@string/sum_reposts" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/sum_visible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:singleLine="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
-        tools:text="@string/sum_visible" />
-
-    <androidx.appcompat.widget.AppCompatImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/visible"
+        style="@style/Widget.AppTheme.VisibleCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@android:color/transparent"
+        android:checkable="true"
         android:contentDescription="@string/visible"
-        android:src="@drawable/ic_baseline_visibility_24"
-        app:layout_constraintEnd_toStartOf="@id/sum_visible"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:checked="true"
+        tools:ignore="TouchTargetSizeCheck"
+        tools:text="@string/sum_visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

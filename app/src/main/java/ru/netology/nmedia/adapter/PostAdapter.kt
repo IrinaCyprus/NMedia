@@ -68,6 +68,7 @@ internal class PostAdapter(
             binding.repost.setOnClickListener {
                 listener.onShareClicked(post)
             }
+            binding.menu.setOnClickListener{popupMenu.show()}
         }
 
         fun bind(post: Post) {
@@ -77,17 +78,17 @@ internal class PostAdapter(
                 authorName.text = post.authorName
                 content.text = post.content
                 published.text = post.published
-                like.setImageResource(getLikeIconResId(post.likedByMe))
-                sumLikes.text = countView(post.sum_likes)
-                sumRepost.text = countView(post.sum_reposts)
-                sumVisible.text = countView(post.sum_visible)
-                menu.setOnClickListener{popupMenu.show()}
+                like.text = post.sum_likes.toString()
+                like.isChecked = post.likedByMe
+//                like.setButtonDrawable(getLikeIconResId(post.likedByMe))
+                repost.text  = countView(post.sum_reposts)
+                visible.text = countView(post.sum_visible)
             }
         }
 
-        @DrawableRes
-        fun getLikeIconResId(liked: Boolean) =
-            if (liked) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
+//        @DrawableRes
+//        fun getLikeIconResId(liked: Boolean) =
+//            if (liked) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
 
         @Override
         fun countView(number: Int): String {
