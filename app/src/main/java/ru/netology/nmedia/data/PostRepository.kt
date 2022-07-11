@@ -1,6 +1,5 @@
 package ru.netology.nmedia.data
 
-import  ru.netology.nmedia.Post
 import androidx.lifecycle.LiveData
 
 interface PostRepository {
@@ -10,6 +9,7 @@ interface PostRepository {
     fun visible()
     fun delete(postId: Long)
     fun save(post: Post)
+    fun update(post: String?)
 
     companion object {
         const val NEW_POST_ID = 0L

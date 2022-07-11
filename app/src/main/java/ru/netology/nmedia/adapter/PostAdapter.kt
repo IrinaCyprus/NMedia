@@ -4,11 +4,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.netology.nmedia.Post
+import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.PostListBinding
 import kotlin.math.floor
@@ -42,7 +41,7 @@ internal class PostAdapter(
 
         private lateinit var post: Post
 
-         private val popupMenu by lazy {
+          private val popupMenu by lazy {
             PopupMenu(itemView.context, binding.menu).apply {
                 inflate(R.menu.option_post)
                 setOnMenuItemClickListener { menuItem ->

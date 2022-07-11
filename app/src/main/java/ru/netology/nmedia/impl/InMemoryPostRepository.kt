@@ -1,7 +1,7 @@
 package ru.netology.nmedia.impl
 
 import androidx.lifecycle.MutableLiveData
-import ru.netology.nmedia.Post
+import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostRepository
 
 //реализация интерфейса PostRepository для хранения памяти
@@ -23,6 +23,7 @@ class InMemoryPostRepository : PostRepository {
                 authorName = "Нетология...",
                 content = "post №${index + 1}1",
                 published = "06/06/2022",
+                video = null,
                 like = 0,
                 likedByMe = false,
                 sum_likes = 1,
@@ -58,7 +59,7 @@ class InMemoryPostRepository : PostRepository {
         if (post.id == PostRepository.NEW_POST_ID) insert(post) else update(post)
     }
 
-    private fun update(post: Post) {
+    override fun update(post: String?) {
         data.value = posts.map {
             if (it.id == post.id) post else it
         }

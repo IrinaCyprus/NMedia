@@ -1,13 +1,11 @@
 package ru.netology.nmedia
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.util.hideKeyboard
-import ru.netology.nmedia.util.showKeyboard
 import ru.netology.nmedia.viewModel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -23,37 +21,77 @@ class MainActivity : AppCompatActivity() {
         viewModel.data.observe(this) { posts ->            // подписались на Livedata  в viewModel
             adapter.submitList(posts)
         }
-        binding.saveButton.setOnClickListener {
-            with(binding.contentEditText) {
-                val content = text.toString()
-                viewModel.onSaveButtonClicked(content)
-                binding.editGroup?.visibility = View.GONE
+
+//        binding.saveButton.setOnClickListener {
+//            with(binding.contentEditText) {
+//                val content = text.toString()
+//                viewModel.onSaveButtonClicked(content)
+//                binding.editGroup?.visibility = View.GONE
+//            }
+//        }
+//
+//        binding.editButton?.setOnClickListener {
+//            viewModel.currentPost.value = null
+//            binding.editGroup?.visibility = View.GONE
+//        }
+//
+//        viewModel.currentPost.observe(this) { currentPost ->
+//            with(binding.contentEditText) {
+//                val content = currentPost?.content
+//                setText(content)
+//                if (content != null) {
+//                    binding.editGroup?.visibility = View.VISIBLE
+//                    binding.editTextField?.text = content
+//                    requestFocus()                                 //(раздел Advanced) позволяет установить фокус на нужном компоненте
+//                    showKeyboard()                                 //функция показывающая клавиатуру
+//                } else {
+//                    clearFocus()
+//                    hideKeyboard()                                 //функция скрывающая клавиатуру
+//                    binding.editGroup?.visibility = View.GONE
+//                }
+//            }
+//        }
+
+        viewModel.sharePostContent.observe(this) { postContent ->
+            val intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, postContent)
+                type = "text/plain"
             }
+
+            val shareIntent =
+                Intent.createChooser(intent, getString(R.string.chooser_share_post))
+            startActivity(shareIntent)
         }
 
-        binding.editButton?.setOnClickListener {
-            viewModel.currentPost.value = null
-            binding.editGroup?.visibility = View.GONE
-        }
-
-        viewModel.currentPost.observe(this) { currentPost ->
-            with(binding.contentEditText) {
-                val content = currentPost?.content
-                setText(content)
-                if (content != null) {
-                    binding.editGroup?.visibility = View.VISIBLE
-                    binding.editTextField?.text = content
-                    requestFocus()                                 //(раздел Advanced) позволяет установить фокус на нужном компоненте
-                    showKeyboard()                                 //функция показывающая клавиатуру
-                } else {
-                    clearFocus()
-                    hideKeyboard()                                 //функция скрывающая клавиатуру
-                    binding.editGroup?.visibility = View.GONE
+        val activityEditLauncher =
+            registerForActivityResult(PostContentActivity.ResultContract) { currentpost: String? ->                      //передаем результат контракта
+                currentpost?.let(viewModel::onEditePost)
+                if (currentpost != null) {
+                    viewModel.repository.update(post = currentpost)
+                    viewModel.onSaveButtonClicked(content = currentpost, video = "url")
                 }
             }
+
+        val activityLauncher =
+            registerForActivityResult(PostContentActivity.ResultContract) { post: String? ->                      //передаем результат контракта
+                post?.let(viewModel::onCreateNewPost)
+                if (post != null) {
+                    viewModel.onSaveButtonClicked(content = post, video = "url")
+                }
+            }
+
+        binding.saveButton.setOnClickListener {
+            activityLauncher.launch(Unit)
+            activityEditLauncher.launch(Unit)
         }
     }
 }
+
+
+
+
+
 
 
 

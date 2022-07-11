@@ -16,8 +16,9 @@
     <string name="enter">Entering text </string>
     <string name="EditImage">Edit icon</string>
     <string name="EditTextTop">Edit Top </string>
-    <string name="edit" >Edit Massage</string>
+    <string name="edit">Edit Massage</string>
     <string name="editTextField" />
     <string name="editButton">Edit save </string>
     <string name="menu">Button menu </string>
+    <string name="chooser_share_post">Share Post </string>
 </resources>
