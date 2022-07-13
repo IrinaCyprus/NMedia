@@ -31,6 +31,14 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
         super.setValue(value)
     }
 
+    @MainThread
+    fun call() {
+        value = null
+    }
+    companion object {
+        private val TAG = "SingleLiveEvent"
+    }
+
 }
 //    override fun writeToParcel(parcel: Parcel, flags: Int) {
 //    }

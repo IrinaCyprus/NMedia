@@ -45,7 +45,7 @@ class InMemoryPostRepository : PostRepository {
     }
 
     override fun repost(postId: Long) {
-        posts = posts.map { post ->
+        data.value = posts.map { post ->
             if (post.id == postId) post.copy(sum_reposts = post.sum_reposts + 1)
             else post
         }
@@ -59,7 +59,8 @@ class InMemoryPostRepository : PostRepository {
         if (post.id == PostRepository.NEW_POST_ID) insert(post) else update(post)
     }
 
-    override fun update(post: String?) {
+
+    override fun update(post: Post) {
         data.value = posts.map {
             if (it.id == post.id) post else it
         }

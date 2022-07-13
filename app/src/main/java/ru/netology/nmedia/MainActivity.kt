@@ -1,10 +1,15 @@
 package ru.netology.nmedia
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.post_list.*
 import ru.netology.nmedia.adapter.PostAdapter
+import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.viewModel.PostViewModel
 
@@ -14,6 +19,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        run {
+//            val preferenses = getPreferences(Context.MODE_PRIVATE)
+//            preferenses.edit {
+//                putString("key", "value")
+//            }
+//        }
+//
+//        run {
+//            val preferenses = getPreferences(Context.MODE_PRIVATE)
+//            val value = preferenses.getString("key", "no value")
+//            if (value == null) return@run
+//            Snackbar.make(binding.root, value, Snackbar.LENGTH_INDEFINITE).show()
+//        }
 
         val viewModel: PostViewModel by viewModels()
         val adapter = PostAdapter(viewModel)
@@ -64,14 +83,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(shareIntent)
         }
 
-        val activityEditLauncher =
-            registerForActivityResult(PostContentActivity.ResultContract) { currentpost: String? ->                      //передаем результат контракта
-                currentpost?.let(viewModel::onEditePost)
-                if (currentpost != null) {
-                    viewModel.repository.update(post = currentpost)
-                    viewModel.onSaveButtonClicked(content = currentpost, video = "url")
-                }
-            }
+//        val activityLauncherEdit =
+//            registerForActivityResult(PostContentActivity.ResultContractEdit) { post: Post ->                      //передаем результат контракта
+//                post.let(viewModel::onEditeClicked)
+//                    post.video?.let { viewModel.onSaveButtonClicked(post.content, it) }
+//            }
 
         val activityLauncher =
             registerForActivityResult(PostContentActivity.ResultContract) { post: String? ->                      //передаем результат контракта
@@ -83,10 +99,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.saveButton.setOnClickListener {
             activityLauncher.launch(Unit)
-            activityEditLauncher.launch(Unit)
+//            activityLauncherEdit.launch(EditPostResult)
         }
+
     }
 }
+
+
+
 
 
 

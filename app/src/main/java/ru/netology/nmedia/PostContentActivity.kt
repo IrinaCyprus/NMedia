@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_post_content.*
 import ru.netology.nmedia.PostContentActivity.Companion.RESULT_KEY
+import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.databinding.ActivityPostContentBinding
 
 class PostContentActivity : AppCompatActivity() {
@@ -23,7 +24,6 @@ class PostContentActivity : AppCompatActivity() {
             onButtonClicked(contentEditText.text?.toString())
         }
     }
-
 
     private fun onButtonClicked(postContent: String?) {
         val intent = Intent()
@@ -44,7 +44,6 @@ class PostContentActivity : AppCompatActivity() {
     }
 
     object ResultContract : ActivityResultContract<Unit, String?>() {
-
         override fun createIntent(context: Context, input: Unit) =
             Intent(context, PostContentActivity::class.java)
 
@@ -55,4 +54,26 @@ class PostContentActivity : AppCompatActivity() {
             return intent.getStringExtra(RESULT_KEY)
         }
     }
+
+//    class EditPostResult(
+//        var newContent: String,
+//        var newVideoUrl: String?,
+//    )
+
+//    object ResultContractEdit : ActivityResultContract<EditPostResult?, Post>() {
+//        override fun createIntent(context: Context, input: EditPostResult?) =
+//            Intent(context, PostContentActivity::class.java).apply {
+//                putExtra("content", input?.newContent)
+//                putExtra("video", input?.newVideoUrl)
+//            }
+//
+//        override fun parseResult(resultCode: Int, intent: Intent?): Post {
+//            if (resultCode == Activity.RESULT_OK) {
+//                EditPostResult(
+//                    newContent = intent?.getStringExtra("content")!!,
+//                    newVideoUrl = intent.getStringExtra("url")
+//                )
+//            } else 0
+//        }
+//    }
 }
