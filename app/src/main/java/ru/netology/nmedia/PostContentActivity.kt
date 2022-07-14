@@ -18,7 +18,8 @@ class PostContentActivity : AppCompatActivity() {
         val binding = ActivityPostContentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.contentEditText.requestFocus()                             // фокус на поле редактирования
+//        binding.contentEditText.requestFocus()                             // фокус на поле редактирования
+        binding.contentEditText.setText(intent?.extras?.getString(Intent.EXTRA_TEXT))         //обращаемсч к переданному Intent и извлекайем из него текст
 
         binding.saveButton.setOnClickListener {
             onButtonClicked(contentEditText.text?.toString())
@@ -43,9 +44,10 @@ class PostContentActivity : AppCompatActivity() {
         const val RESULT_KEY = "postNewContent"
     }
 
-    object ResultContract : ActivityResultContract<Unit, String?>() {
-        override fun createIntent(context: Context, input: Unit) =
+    object ResultContract : ActivityResultContract<String, String?>() {       //Добавьляем входной параметр типа String и кладем его в Intent
+        override fun createIntent(context: Context, input: String) =
             Intent(context, PostContentActivity::class.java)
+                .putExtra(Intent.EXTRA_TEXT,input)
 
         override fun parseResult(resultCode: Int, intent: Intent?): String? {
             if (resultCode != Activity.RESULT_OK) return null
@@ -54,26 +56,4 @@ class PostContentActivity : AppCompatActivity() {
             return intent.getStringExtra(RESULT_KEY)
         }
     }
-
-//    class EditPostResult(
-//        var newContent: String,
-//        var newVideoUrl: String?,
-//    )
-
-//    object ResultContractEdit : ActivityResultContract<EditPostResult?, Post>() {
-//        override fun createIntent(context: Context, input: EditPostResult?) =
-//            Intent(context, PostContentActivity::class.java).apply {
-//                putExtra("content", input?.newContent)
-//                putExtra("video", input?.newVideoUrl)
-//            }
-//
-//        override fun parseResult(resultCode: Int, intent: Intent?): Post {
-//            if (resultCode == Activity.RESULT_OK) {
-//                EditPostResult(
-//                    newContent = intent?.getStringExtra("content")!!,
-//                    newVideoUrl = intent.getStringExtra("url")
-//                )
-//            } else 0
-//        }
-//    }
 }

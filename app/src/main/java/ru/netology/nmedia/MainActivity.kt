@@ -83,12 +83,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(shareIntent)
         }
 
-//        val activityLauncherEdit =
-//            registerForActivityResult(PostContentActivity.ResultContractEdit) { post: Post ->                      //передаем результат контракта
-//                post.let(viewModel::onEditeClicked)
-//                    post.video?.let { viewModel.onSaveButtonClicked(post.content, it) }
-//            }
-
         val activityLauncher =
             registerForActivityResult(PostContentActivity.ResultContract) { post: String? ->                      //передаем результат контракта
                 post?.let(viewModel::onCreateNewPost)
@@ -98,10 +92,12 @@ class MainActivity : AppCompatActivity() {
             }
 
         binding.saveButton.setOnClickListener {
-            activityLauncher.launch(Unit)
-//            activityLauncherEdit.launch(EditPostResult)
+            activityLauncher.launch(String())
         }
 
+        viewModel.navigateToPostContentScreenEvent.observe(this) { input ->
+            activityLauncher.launch(input)
+        }
     }
 }
 

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.DelicateCoroutinesApi
+import ru.netology.nmedia.PostContentActivity
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.adapter.PostInteractionListener
 import ru.netology.nmedia.data.PostRepository
@@ -18,8 +19,8 @@ class PostViewModel(
     val data by repository::data
     private val currentPost = MutableLiveData<Post?>(null)
     val sharePostContent = SingleLiveEvent<String>()
-    private val navigateToPostContentScreenEvent = SingleLiveEvent<String>()
-    private val playVideo = SingleLiveEvent<String>()
+    val navigateToPostContentScreenEvent = SingleLiveEvent<String?>()
+    private val playVideo = SingleLiveEvent<String?>()
 
     override fun onLikeClicked(post: Post) = repository.like(post.id)
     override fun onShareClicked(post: Post) {
@@ -31,13 +32,8 @@ class PostViewModel(
     override fun onVisibleClicked(post: Post) = repository.visible()
     override fun onEditeClicked(post: Post) {
         currentPost.value = post
-//        navigateToPostContentScreenEvent.value =
-//            PostContentActivity.EditPostResult(post.content, post.video).toString()
+        repository.update(post)
     }
-
-//    fun onAddListener() {
-//        navigateToPostContentScreenEvent.call()
-//    }
 
     fun onCreateNewPost(post: String) {
         navigateToPostContentScreenEvent.value = post
