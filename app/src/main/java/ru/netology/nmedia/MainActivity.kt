@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
 
         val activityLauncher =
             registerForActivityResult(PostContentActivity.ResultContract) { post: String? ->                      //передаем результат контракта
-                post?.let(viewModel::onCreateNewPost)
+//                post?.let(viewModel::onCreateNewPost)
                 if (post != null) {
                     viewModel.onSaveButtonClicked(content = post, video = "url")
                 }

@@ -32,7 +32,7 @@ class PostViewModel(
     override fun onVisibleClicked(post: Post) = repository.visible()
     override fun onEditeClicked(post: Post) {
         currentPost.value = post
-        repository.update(post)
+        navigateToPostContentScreenEvent.value = post.content
     }
 
     fun onCreateNewPost(post: String) {
