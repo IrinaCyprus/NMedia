@@ -61,6 +61,9 @@ internal class PostAdapter(
         }
 
         init {
+            binding.content.setOnClickListener {
+                listener.onPostClicked(post)
+            }
             binding.like.setOnClickListener {
                 listener.onLikeClicked(post)
             }

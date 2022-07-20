@@ -22,4 +22,7 @@
     <string name="editButton">Сохранить редактирование </string>
     <string name="menu">Кнопка меню </string>
     <string name="chooser_share_post">Поделиться</string>
+    <string name="add">Добавить пост</string>
+    <string name="uri">uri </string>
+    <string name="jpeg" />
 </resources>

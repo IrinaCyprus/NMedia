@@ -8,5 +8,5 @@ interface PostInteractionListener {
     fun onRemoveClicked(post: Post)
     fun onVisibleClicked(post: Post)
     fun onEditeClicked(post: Post)
-
+    fun onPostClicked(post:Post)
 }

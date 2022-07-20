@@ -21,4 +21,7 @@
     <string name="editButton">Edit save </string>
     <string name="menu">Button menu </string>
     <string name="chooser_share_post">Share Post </string>
+    <string name="add">Save Post </string>
+    <string name="uri">uri </string>
+    <string name="jpeg" />
 </resources>

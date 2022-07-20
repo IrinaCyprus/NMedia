@@ -2,12 +2,10 @@ package ru.netology.nmedia.impl
 
 import android.app.Application
 import android.content.Context
-import android.provider.Settings.Global.putString
 import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
