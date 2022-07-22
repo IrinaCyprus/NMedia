@@ -24,7 +24,7 @@ class InMemoryPostRepository : PostRepository {
                 content = "post №${index + 1}1",
                 published = "06/06/2022",
                 video = null,
-                like = 0,
+//                like = 0,
                 likedByMe = false,
                 sum_likes = 1,
                 sum_reposts = 10,
@@ -37,9 +37,9 @@ class InMemoryPostRepository : PostRepository {
     override fun like(postId: Long) {
         posts = posts.map { post ->
             if (post.id == postId && !post.likedByMe) {
-                post.copy(likedByMe = !post.likedByMe, like = post.sum_likes++)
+                post.copy(likedByMe = !post.likedByMe, sum_likes = post.sum_likes++)
             } else if (post.id == postId && post.likedByMe) {
-                post.copy(like = post.sum_likes--, likedByMe = !post.likedByMe)
+                post.copy(sum_likes = post.sum_likes--, likedByMe = !post.likedByMe)
             } else post
         }
     }

@@ -46,9 +46,9 @@ class SharedPrefsPostRepository(application: Application) : PostRepository {
     override fun like(postId: Long) {
         posts = posts.map { post ->
             if (post.id == postId && !post.likedByMe) {
-                post.copy(likedByMe = !post.likedByMe, like = post.sum_likes++)
+                post.copy(likedByMe = !post.likedByMe, sum_likes = post.sum_likes++)
             } else if (post.id == postId && post.likedByMe) {
-                post.copy(like = post.sum_likes--, likedByMe = !post.likedByMe)
+                post.copy(sum_likes = post.sum_likes--, likedByMe = !post.likedByMe)
             } else post
         }
     }

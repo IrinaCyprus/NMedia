@@ -9,7 +9,7 @@ data class Post(
     val content: String,
     val published: String,
     val video: String?,
-    val like: Int,
+//    val like: Int,
     val likedByMe: Boolean,
     var sum_likes: Int,
     var sum_reposts: Int,

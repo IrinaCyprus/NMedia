@@ -7,14 +7,24 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.adapter.PostInteractionListener
 import ru.netology.nmedia.data.PostRepository
+import ru.netology.nmedia.db.AppDb
 import ru.netology.nmedia.impl.NewFilePostRepository
+import ru.netology.nmedia.impl.SQLitePepository
 import ru.netology.nmedia.util.SingleLiveEvent
 
 class PostViewModel(
     application: Application
-) : AndroidViewModel(application), PostInteractionListener {
-    @OptIn(DelicateCoroutinesApi::class)
-    private val repository: PostRepository = NewFilePostRepository(application)
+) : AndroidViewModel(application),
+    PostInteractionListener {
+
+    private val repository: PostRepository =
+//        NewFilePostRepository(application)
+        SQLitePepository(
+            dao = AppDb.getInstance(
+                context = application
+            ).postDao
+        )
+
     val data by repository::data
     private val currentPost = MutableLiveData<Post?>(null)
     val sharePostContent = SingleLiveEvent<String>()
@@ -44,6 +54,7 @@ class PostViewModel(
     }
 
 //    fun onCreateNewPost(post: String) {
+//        currentPost.value = post
 //        navigateToPostContentScreenEvent.value = post
 //        playVideo.value = post
 //    }
@@ -60,7 +71,7 @@ class PostViewModel(
             content = content,
             published = " Today",
             video = video,
-            like = 0,
+//            like = 0,
             likedByMe = false,
             sum_likes = 0,
             sum_reposts = 0,
