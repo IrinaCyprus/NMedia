@@ -3,13 +3,11 @@ package ru.netology.nmedia.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.DelicateCoroutinesApi
-import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.adapter.PostInteractionListener
+import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.db.AppDb
-import ru.netology.nmedia.impl.NewFilePostRepository
-import ru.netology.nmedia.impl.SQLitePepository
+import ru.netology.nmedia.impl.PostRepositoryImpl
 import ru.netology.nmedia.util.SingleLiveEvent
 
 class PostViewModel(
@@ -19,7 +17,7 @@ class PostViewModel(
 
     private val repository: PostRepository =
 //        NewFilePostRepository(application)
-        SQLitePepository(
+        PostRepositoryImpl(
             dao = AppDb.getInstance(
                 context = application
             ).postDao
